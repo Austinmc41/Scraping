@@ -70,7 +70,3 @@ project-root/
 - Respect `robots.txt` and site terms of service
 - Add request delays to avoid IP bans
 - Use headless browsers like Selenium for JavaScript-heavy content (not included here)
-
-## License
-
-MIT License
