@@ -29,28 +29,28 @@ driver.close()
 soup=BeautifulSoup(resp,'lxml')
 
 allJobsContainer = soup.find("ul", class_='JobsList_jobsList__lqjTr')
-
-allJobs = allJobsContainer.find_all("li")
-
+class_=lambda x: x and "EmployerProfile" in x
+allJobs = allJobsContainer.find_all("li", class_=lambda x: x and "JobsList_jobListItem" in x)
 
 for job in allJobs:
+    print(job)
     try:
-        o["name-of-company"] = job.find("span", class_="EmployerProfile_compactEmployerName__9MGcV").get_text(strip=True)
+        o["name-of-company"] = job.find("span", class_=lambda x: x and "EmployerProfile" in x).get_text(strip=True)
     except:
         o["name-of-company"] = None
 
     try:
-        o["name-of-job"] = job.find("a", class_="JobCard_jobTitle__GLyJ1").get_text(strip=True)
+        o["name-of-job"] = job.find("a", class_=lambda x: x and "JobCard_jobTitle" in x).get_text(strip=True)
     except:
         o["name-of-job"] = None
 
     try:
-        o["location"] = job.find("div", class_="JobCard_location__Ds1fM").get_text(strip=True)
+        o["location"] = job.find("div", class_=lambda x: x and "JobCard_location" in x).get_text(strip=True)
     except:
         o["location"] = None
 
     try:
-        salary_tag = job.find("div", class_="JobCard_salaryEstimate__QpbTW")
+        salary_tag = job.find("div", class_=lambda x: x and "JobCard_salaryEstimate" in x)
         o["salary"] = salary_tag.get_text(strip=True) if salary_tag else None
     except:
         o["salary"] = None
